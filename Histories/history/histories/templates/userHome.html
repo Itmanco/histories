@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="userhome-page">
+    <div class="container">
+        <div class="row">
+            {% if user.is_authenticated %}
+            <div class="col-md-4">
+                <h1>@{{history_user.username}}</h1>
+            </div>
+            {% endblock %}
+            {% block post_content %}
+            <div class="col-md-8">
+                {% for history in history_list %}
+                    <a>{{history}}</a>
+<!--                {% include "_history.html" %}-->
+                {% endfor %}
+            </div>
+            {% else %}
+                <a>"Pagina de acceso restringido"</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

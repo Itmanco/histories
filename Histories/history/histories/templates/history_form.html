@@ -1,0 +1,11 @@
+{% extends "history_base.html" %}
+{% load bootstrap5 %}
+{% block post_content %}
+    <h4>Crear Historia</h4>
+    <form id="historyForm" action="{% url 'histories:history_create' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {{form.media}}
+        <input type="submit" value="Crear" class="btn btn-primary btn-large">
+    </form>
+{% endblock %}

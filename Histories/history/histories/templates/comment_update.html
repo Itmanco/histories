@@ -1,0 +1,11 @@
+{% extends "history_base.html" %}
+{% load bootstrap5 %}
+{% block post_content %}
+    <h4>Modificar Comentario</h4>
+    <form id="commentForm" action="{% url 'histories:comment_edit' pk=comment.pk %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {{form.media}}
+        <input type="submit" value="Guardar" class="btn btn-primary btn-large">
+    </form>
+{% endblock %}

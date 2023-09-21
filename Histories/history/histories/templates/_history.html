@@ -1,0 +1,72 @@
+<div class="post media">
+    {% if user.is_authenticated %}
+    <div class="container history-details">
+        <p class="fs-2">{{history.title}}</p>
+        <a class="btn btn-light" data-bs-toggle="collapse" href="#collapseHistoryDetails" role="button" aria-expanded="true"
+           aria-controls="collapseHistoryDetails">
+            Detalles..
+        </a>
+        <div class="collapse " id="collapseHistoryDetails" style="">
+            <div class="card card-body">
+                <h6>
+                <label>Autor: {{ history.user.username }}</label><br>
+                <label>Creado: {{ history.created_at }}</label><br>
+                <label>Modificado: {{ history.modified_at }}</label><br>
+                <label># imagenes: {{ history.n_images }}</label><br>
+                </h6>
+            </div>
+        </div>
+        <p class="fs-4">{{history.description|safe}}</p>
+        <div class="media-footer">
+            {% if user.is_authenticated and history.user == user %}
+            <a href="{% url 'histories:comment_create' history.pk %}" title="add" class="btn btn-simple">
+                <button type="button" id="add_btn" class="btn btn-outline-success">Agregar Imagen</button>
+            </a>
+            <a href="{% url 'histories:history_guests' history.pk %}" title="guests" class="btn btn-simple">
+                <button type="button" id="guests_btn" class="btn btn-outline-success">Invitaciones</button>
+            </a>
+            <a href="{% url 'histories:history_delete' history.pk %}" title="delete" class="btn btn-simple">
+                <button type="button" id="delete_btn" class="btn btn-outline-danger">Borrar</button>
+            </a>
+            <a href="{% url 'histories:history_edit' pk=history.pk %}" class="btn btn-simple">
+                <button type="button" id="update_btn" class="btn btn-outline-danger">Modificar</button>
+            </a>
+            {% endif %}
+        </div>
+        {% block group_content %}
+        <div class="container-fluid">
+            <div id="commentsCarousel" class="carousel slide carousel-fade">
+                <div class="carousel-inner">
+                    {% if history.comments.count > 0 %}
+                        {% for comment in history.comments.all %}
+                            <div class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %}">
+                                <figure class="figure">
+                                    <a href="{% url 'histories:comment_detail' comment.pk %}">
+                                        <img src="{{ comment.image.url }}" class="figure-img img-fluid rounded">
+                                    </a>
+                                    <b>{{comment.title|capfirst}}</b>
+                                    <figcaption class="figure-caption">
+                                        <blockquote>
+                                            {{comment.description|safe}}
+                                        </blockquote>
+                                        <cite>by</cite>, {{comment.user.username}}
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#commentsCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#commentsCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+    {% endif %}
+</div>

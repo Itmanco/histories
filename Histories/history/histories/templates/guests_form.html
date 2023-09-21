@@ -1,0 +1,33 @@
+{% extends "history_base.html" %}
+{% load bootstrap5 %}
+{% block post_content %}
+    <h4>Invitaciones</h4>
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <form id="guestForm" action="{% url 'histories:history_guests' loc_history.pk %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+                        <input type="submit" value="invitar" class="btn btn-primary btn-large">
+                    </form>
+                </div>
+                <div class="col-6">
+                    {% if loc_history.guestsbyhistory.all %}
+                        {% for guest in loc_history.guestsbyhistory.all %}
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-center" style="max-width: 500px;overflow: auto;">
+                                    <h5 class="mb-1">{{guest.user.username}}</h5>
+                                    <span class="badge bg-outline-secondary rounded-pill">{{guest.get_level_description}}</span>
+                                    <form method="POST" action="{% url 'histories:historyGuest_delete' guest.pk %}">
+                                       {% csrf_token %}
+                                        <button type="submit" class="btn btn-outline-secondary">Borrar</button>
+                                    </form>
+
+                                </li>
+                            </ul>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+{% endblock %}

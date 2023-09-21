@@ -1,0 +1,12 @@
+<div class="guest detail">
+  <div class="container guest-details">
+    <p class="fs-2">{{user.username}}</p>
+    <div class="media-footer">
+      {% if user.is_authenticated and comment.user == user %}
+        <a href="{% url 'histories:comment_delete' pk=comment.pk %}" title="Borrar" class="btn btn-simple">
+          <button type="button" id="delete_btn" class="btn btn-outline-danger">Borrar</button>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>

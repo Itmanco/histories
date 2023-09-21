@@ -1,0 +1,54 @@
+{% extends "history_base.html" %}
+{% block prepost %}
+<div class="history_content-page">
+    {% if user.is_authenticated %}
+    <div class="container">
+        <p><h3>Mis Historias</h3></p>
+        <div class="row">
+            {% if latest_histories_list %}
+                {% for history in latest_histories_list %}
+                    <div class="card border-light mb-3" style="width: 18rem;">
+                        <h5 class="card-header">{{ history.title }}</h5>
+                        <div class="card-body">
+                            {{ history.description|safe}}<br>
+                            <p class="card-text">Contiene: {{history.n_images}} imagen{%if history.n_images != 1%}es{% endif %}.</p>
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            <a href="{% url 'histories:history_detail' history.pk %}" title="open" class="btn btn-simple">
+                              <button type="button" id="add_btn" class="btn btn-outline-light">Abrir</button>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No tiene historias disponibles.</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container">
+        <p><h3>Invitado</h3></p>
+        <div class="row">
+            {% if invitations_list %}
+                {% for history in invitations_list %}
+                    <div class="card border-info mb-3" style="width: 18rem;">
+                        <h5 class="card-header">{{ history.title }}</h5>
+                        <div class="card-body">
+                            {{ history.description|safe}}<br>
+                            <p class="card-text">Contiene: {{history.n_images}} imagen{%if history.n_images != 1%}es{% endif %}.</p>
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            <a href="{% url 'histories:history_detail' history.pk %}" title="open" class="btn btn-simple">
+                              <button type="button" id="add_btn_inv" class="btn btn-outline-light">Abrir</button>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No tiene historias disponibles.</p>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+<div class="post media">
+
+<div class="container history-details">
+    <p class="fs-2">{{comment.title}}</p>
+
+    <a class="btn btn-light" data-bs-toggle="collapse" href="#collapseHistoryDetails" role="button" aria-expanded="true"
+       aria-controls="collapseHistoryDetails">
+        Detalles..
+    </a>
+    <div class="collapse " id="collapseHistoryDetails" style="">
+        <div class="card card-body">
+            <h6>
+            <label>Autor: {{ comment.user.username }}</label><br>
+            <label>Creado: {{ comment.created_at }}</label><br>
+            <label>Modificado: {{ comment.modified_at }}</label><br>
+            </h6>
+        </div>
+    </div>
+    <div class="media-body">
+        {% if comment.image %}
+            <a href="{{ comment.image.url }}">
+                <img src="{{ comment.image.url }}" class="figure-img img-fluid rounded">
+            </a>
+        {% endif %}
+    </div>
+    <p class="fs-4">{{comment.description|safe}}</p>
+        <div class="media-footer">
+            {% if user.is_authenticated and comment.user == user %}
+            <a href="{% url 'histories:comment_delete' pk=comment.pk %}" title="Borrar" class="btn btn-simple">
+                <button type="button" id="delete_btn" class="btn btn-outline-danger">Borrar</button>
+            </a>
+            <a href="{% url 'histories:comment_edit' pk=comment.pk %}" class="btn btn-simple">
+                <button type="button" id="update_btn" class="btn btn-outline-danger">Modificar</button>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>

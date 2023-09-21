@@ -1,0 +1,19 @@
+{% extends "history_base.html" %}
+{% block content %}
+<h3>Estas seguro de borrar esta historia?</h3>
+<div class="container pt-5">
+    {% include "_history.html"%}
+    <script>
+        var bt1 = document.getElementById('delete_btn').style.display="none"; ;
+        document.getElementById('update_btn').style.display='none';
+    </script>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="submit" value="Confirmar eliminación" class="btn btn-outline-danger">
+    <a href="{% url 'histories:history_detail' pk=object.pk %}"
+       class="btn btn-outline-secondary">Cancel</a>
+</form>
+
+{% endblock %}
