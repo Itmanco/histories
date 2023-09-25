@@ -141,4 +141,4 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['-created_at']
-        unique_together = ['user', 'description']
+        # unique_together = ['user', 'description']

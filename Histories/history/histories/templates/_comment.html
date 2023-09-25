@@ -32,6 +32,12 @@
             <a href="{% url 'histories:comment_edit' pk=comment.pk %}" class="btn btn-simple">
                 <button type="button" id="update_btn" class="btn btn-outline-danger">Modificar</button>
             </a>
+            <a href="{% url 'histories:comment_create' comment.history.pk %}" class="btn btn-simple">
+                <button type="button" id="add_new_btn" class="btn btn-outline-success">Agregar Imagen</button>
+            </a>
+            <a href="{% url 'histories:history_detail' pk=comment.history.pk %}" class="btn btn-simple">
+                <button type="button" id="go_history_btn" class="btn btn-outline-success">Volver</button>
+            </a>
             {% endif %}
         </div>
     </div>
