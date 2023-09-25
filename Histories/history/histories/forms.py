@@ -13,7 +13,7 @@ class HistoryForm(forms.ModelForm):
 
     widgets = {
         'title': forms.Textarea(attrs={'class': 'form-control'}),
-        'description': forms.FileInput(attrs={'class': 'form-control'}),
+        'description': forms.Textarea(attrs={'class': 'form-control'}),
         'place': forms.Select(attrs={'class': 'form-control'})
     }
 
@@ -32,7 +32,7 @@ class CommentForm(forms.ModelForm):
     widgets = {
         'title': forms.Textarea(attrs={'class': 'form-control'}),
         'image': forms.FileInput(attrs={'class': 'form-control'}),
-        'description': forms.FileInput(attrs={'class': 'form-control'})
+        'description': forms.Textarea(attrs={'class': 'form-control'})
     }
 
     def __init__(self, *args, **kwargs):
